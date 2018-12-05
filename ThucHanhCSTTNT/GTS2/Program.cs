@@ -93,7 +93,7 @@ namespace GTS2
             return true;
         }
         /// <summary>
-        /// tìm chu trình với cost ít nhất với điểm bắt đầu là 1 danh sách
+        /// tìm chu trình với cost ít nhất trong 1 danh sách bắt đầu
         /// </summary>
         /// <returns></returns>
         public static Tuple<List<int>, int> ImplementGTS2(int[][] arr) => new List<int> { 0, 1, 3, 5 }.Select(dinh => SolveTSP(arr, dinh)).Aggregate((a, b) => a.Item2 <= b.Item2? a : b);
