@@ -148,10 +148,53 @@ namespace ThuatToanAStar
             }
             Console.WriteLine();
         }
+        public static void ImplementAT()
+        {
+            var open = new List<Node>();
+            var graph = ReadGraph(@"D:\projects\dotnet\CoSoTriTueNhanTao\ThucHanhCSTTNT\ThuatToanAStart\file.txt");
+            int input = 0;
+            int output = 1;
+            var start = graph[input];
+            start.G = 0;
+            var end = graph[output];
+            open.Add(start);
+            while (open.Count > 0) // bắt đầu tìm
+            {
+                var current = open.First();
+                open.RemoveAt(0);
+                if (current == end) // chinh lai cho bang trang thai cuoi                
+                    break;
+                foreach (var item in current.LstNode) //current 
+                {
+                    Node adj = null;
+                    foreach (var node in graph)
+                    {
+                        if (node.Index == item.Item1)
+                        {
+                            adj = node;
+                        }
+                    }
+                    adj.G = current.G + item.Item2;
+                    //adj.F = adj.G + adj.H;
+                    adj.Parent = current;
+                    open.Add(adj);
+
+                }
+                open.Sort((a, b) => a.F.CompareTo(b.F));
+            }
+            Console.WriteLine(end.Index);
+            while (end.Parent != null)
+            {
+                Console.WriteLine(end.Parent.Index);
+                end = end.Parent;
+            }
+            Console.WriteLine();
+        }
         static void Main(string[] args)
         {
             //ImplementAStar();
-            ImplementAKT();
+            //ImplementAKT();
+            ImplementAT();
         }
     }
 }
